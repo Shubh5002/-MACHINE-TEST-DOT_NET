@@ -1,0 +1,63 @@
+﻿@model IEnumerable<DOTMACHINETEST.Models.Product>
+
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+@{
+    ViewData["Title"] = "Product List";
+}
+
+<h2>Product List</h2>
+
+<p>
+    <a asp-action="AddProduct" class="btn btn-primary">Add Product</a>
+</p>
+<table class="table table-hover responsive nowrap" style="border:1px solid black;width:100%;" id="dataTables">
+    <thead>
+        <tr>
+            <th>ProductId</th>
+            <th>ProductName</th>
+            <th>CategoryId</th>
+            <th>CategoryName</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var product in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => product.ProductId)</td>
+                <td>@Html.DisplayFor(modelItem => product.ProductName)</td>
+                <td>@Html.DisplayFor(modelItem => product.Category.CategoryId)</td>
+                <td>@Html.DisplayFor(modelItem => product.Category.CategoryName)</td>
+                <td>
+                    <a class="btn btn-primary" asp-action="EditProduct" asp-route-id="@product.ProductId" role="button">Edit</a>
+                    <a class="btn btn-warning" asp-action="DeleteProduct" asp-route-id="@product.ProductId" role="button">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+@section Scripts {
+    <script>
+        $(document).ready(function() {
+            $('#dataTables').DataTable({
+
+    
+                "paging": true,
+                "ordering": true,
+                "info": true,
+                "lengthMenu": [3, 5, 10], // Set the available options for entries per page
+                "pageLength": 10 // Set the default number of entries per page
+             
+              
+
+   
+            });
+
+          
+
+
+
+        });
+    </script>
+    }
+
